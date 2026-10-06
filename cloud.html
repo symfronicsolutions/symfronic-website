@@ -3,166 +3,270 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FleetLog – Sign in</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<title>FleetLog – Fleet records you can trust</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-:root{--ink:#14212b;--line:#cfd5da;--amber:#f2b01e;--ok:#2e7d5b;--bad:#c8452f;--mute:#5b6770}
-*{box-sizing:border-box}
-body{margin:0;font:15px/1.5 Barlow,system-ui,sans-serif;color:var(--ink);background:#eef0f2}
-h2,h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin:0 0 8px}
-:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-header{background:var(--ink);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-header b{font:700 22px 'Barlow Condensed'}
-.app{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 50px)}
-.side{background:#f6f7f8;border-right:2px solid var(--ink);padding:14px}
-.main{background:#fff;padding:18px;min-width:0}
-.box{max-width:380px;margin:60px auto;background:#fff;padding:24px;border:2px solid var(--ink);border-radius:6px}
-.veh{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:8px;margin-bottom:6px;cursor:pointer;font:inherit}
-.veh.on{border:2px solid var(--ink);background:#fff7e0}
-.btn{background:var(--amber);color:var(--ink);font:600 15px Barlow;padding:8px 16px;border:0;border-radius:4px;cursor:pointer}
-.btn.sm{padding:3px 10px;font-size:13px;background:#e3e7ea}
+:root{--navy:#0A1424;--navy2:#13233B;--gold:#C8A15A;--gold2:#E6CF9B;--ivory:#F6F3EC;--ink:#0E1A2B;--mute:#6B7686;--line:#E7E2D7;--ok:#1F7A5A;--warn:#B7791F;--bad:#B83A2E}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font:15px/1.5 Manrope,system-ui,sans-serif;color:var(--ink);background:var(--ivory)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;margin:0 0 10px}h1{font-size:30px}h2{font-size:22px}h3{font-size:17px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{background:var(--navy);color:#fff;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:3px solid var(--gold)}
+.logo{font:600 24px Fraunces,serif;color:var(--gold2)}.who{font-size:13px;color:#aebbd0}
+.app{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 62px)}
+nav{background:var(--navy2);padding:16px 10px}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:#c3cee0;padding:10px 14px;border-radius:8px;font:600 14px Manrope;cursor:pointer;margin-bottom:4px}
+nav button.on{background:rgba(200,161,90,.18);color:var(--gold2);box-shadow:inset 3px 0 var(--gold)}
+main{padding:26px;min-width:0}
+.b{background:linear-gradient(180deg,#D3AE6A,#B98F45);color:#1A1405;font:700 14px Manrope;padding:9px 18px;border:0;border-radius:8px;cursor:pointer;display:inline-block;text-decoration:none}
+.b.sm{padding:5px 12px;font-size:13px;background:#fff;color:var(--ink);border:1px solid var(--line)}.b:disabled{opacity:.6}
 .x{background:none;border:0;color:var(--bad);cursor:pointer;font:inherit}
-label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
-input,select{width:100%;font:inherit;padding:7px;border:1px solid #98a2aa;border-radius:4px;margin-top:3px;background:#fff}
-.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
-.tabs{display:flex;gap:4px;border-bottom:2px solid var(--ink);margin:12px 0}
-.tabs button{border:0;background:#e3e7ea;padding:7px 16px;font:600 15px Barlow;cursor:pointer;border-radius:4px 4px 0 0}
-.tabs .on{background:var(--ink);color:#fff}
-.panel{border:1px dashed #98a2aa;border-radius:4px;padding:12px;margin:12px 0;background:#fafbfb}
-.stats{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.stat{flex:1 1 120px;border:1px solid var(--line);padding:6px 10px;border-radius:4px}
-.stat b{display:block;font:700 24px 'Barlow Condensed'}.stat span{font-size:12px;color:var(--mute)}
-table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
-.t{overflow-x:auto}img.ph{width:52px;height:52px;object-fit:cover;border-radius:4px}
-.warn{color:var(--bad);font-weight:600;font-size:13px}.m{color:var(--mute);font-size:13px}
-.cam{position:fixed;inset:0;background:#000;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}.cam video{max-width:100%;max-height:75vh}
-@media(max-width:720px){.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:2px solid var(--ink)}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px rgba(10,20,36,.05)}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;border-top:3px solid var(--gold)}
+.kpi b{display:block;font:600 28px Fraunces,serif}.kpi span{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.kpi.bad{border-top-color:var(--bad)}.kpi.warn{border-top-color:var(--warn)}.kpi.ok{border-top-color:var(--ok)}
+label{display:block;font-size:12px;font-weight:700;color:var(--mute);margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em}
+input,select{width:100%;font:inherit;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid #D6D0C2;border-radius:8px;margin-top:4px;background:#fff;text-transform:none;letter-spacing:0;font-weight:500}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+table{width:100%;border-collapse:collapse;font-size:14px}th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);text-align:left;padding:8px;border-bottom:2px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}.t{overflow-x:auto}tr.click{cursor:pointer}tr.click:hover{background:#FBF8F1}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;color:#fff;margin:0 6px 4px 0}
+.ok{background:var(--ok)}.soon{background:var(--warn)}.over{background:var(--bad)}.gray{background:#7C879A}.navyp{background:var(--navy2)}
+.m{color:var(--mute);font-size:13px}.warnt{color:var(--bad);font-weight:600;font-size:12px}
+.pb{border:1px dashed #CFC6B0;border-radius:10px;padding:10px;margin-bottom:12px;background:#FCFAF5}
+img.ph{width:46px;height:46px;object-fit:cover;border-radius:6px;vertical-align:middle}
+.th{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0;margin:0 6px 4px 0;cursor:pointer;overflow:hidden}
+.th img{width:54px;height:54px;object-fit:cover;display:block}.pdfb{padding:14px 12px;font:700 12px Manrope;color:var(--bad)}
+.lb,.cam{position:fixed;inset:0;background:rgba(5,10,20,.92);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
+.lb img,.cam video{max-width:96vw;max-height:78vh;border-radius:8px}.lb iframe{width:min(900px,96vw);height:78vh;border:0;background:#fff;border-radius:8px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;z-index:30;border-left:4px solid var(--gold);max-width:90vw}.toast.bad{border-left-color:var(--bad)}
+.box{max-width:400px;margin:70px auto;background:#fff;padding:30px;border-radius:16px;border-top:4px solid var(--gold);box-shadow:0 10px 40px rgba(10,20,36,.12)}
+.bar{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:14px}.bar label{margin:0;flex:1 1 150px}
+@media(max-width:800px){.app{grid-template-columns:1fr}nav{display:flex;overflow-x:auto;gap:4px;padding:8px}nav button{width:auto;white-space:nowrap;margin:0}main{padding:14px}}
+@media print{body *{visibility:hidden}#rp,#rp *{visibility:visible}#rp{position:absolute;left:0;top:0;width:100%}.noprint{display:none!important}}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script>
-/* SETUP: paste your Supabase project values (Project Settings > API). The anon key is public by design;
-   your data is protected by the row level security rules in fleetlog-schema.sql. Never paste the service_role key here. */
 const SB_URL='https://jdfkpjjsutbdhrafhlez.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpkZmtwampzdXRiZGhyYWZobGV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExOTcxOTYsImV4cCI6MjEwNjc3MzE5Nn0.rnjtED5cjcY0PfEWGIBRLdGyB40r9GVDZe04KwQC_Lw';
-
 const $=id=>document.getElementById(id),root=$('root');
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const n=x=>(+x||0).toLocaleString('en-IN'),n2=x=>(+x||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num=s=>+String(s).replace(/\D/g,'');
 const fd=t=>new Date(t).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
-const FLAG={odometer_backwards:'Odometer went backwards',photo_time_mismatch:'Photo time differs from entry time',backdated:'Entry was backdated'};
-if(SB_URL.startsWith('YOUR_')||SB_KEY.startsWith('YOUR_')){root.innerHTML='<div class="box"><h2>Setup needed</h2><p>Open <code>cloud.html</code> and paste your Supabase URL and public key at the top of the script.</p></div>';throw new Error('not configured')}
+const KIND={checkin:'Odometer check-in',service:'Service',fuel:'Fuel fill'};
+const STAT={running:'Running',active:'Active',idle:'Resting',repair:'At repair'};
+const SC={running:'ok',active:'navyp',idle:'gray',repair:'over'};
+const CATS=['Car','Van','Bus','Truck / Lorry','Other'];
+const MAKES=['Toyota','Hyundai','Ford','Nissan','Honda','Kia','Isuzu','Mitsubishi','Mercedes-Benz','Chevrolet','Suzuki','Mazda','Volkswagen','BMW','Tata','Ashok Leyland'];
+const PAY=['Cash','Card','Fuel card','Bank transfer','Credit (pay later)'];
+const FLAG={odometer_backwards:'Odometer lower than before',photo_time_mismatch:'Photo date differs from entry date',backdated:'Entered later than its date'};
+const PL={week:'This week',month:'This month',last:'Last month',all:'All time',custom:'Custom range'};
+if(SB_URL.startsWith('__')||SB_KEY.startsWith('__'))throw new Error('not configured');
 const sb=supabase.createClient(SB_URL,SB_KEY);
-const S={user:null,acc:null,role:null,types:[],veh:[],sel:null,ent:[],urls:{},tab:'log'};
-let pend=null;
-const can=(...r)=>r.includes(S.role);
-const fail=e=>{root.innerHTML='<div class="box"><h2>Something went wrong</h2><p class="warn">'+esc(e.message||e)+'</p><button class="btn" onclick="boot()">Try again</button></div>'};
+const S={acc:null,role:null,types:[],veh:[],ent:[],urls:{},inf:{},page:'dash',sel:null,vf:null,flt:{v:'all',p:'month',from:'',to:'',k:'all'}};
+const P={main:null,pump:null};
+const biz=()=>S.acc.type==='business',can=(...r)=>r.includes(S.role),mgr=()=>can('owner','manager');
+const toast=(m,bad)=>{const t=document.createElement('div');t.className='toast'+(bad?' bad':'');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),4500)};
+const friendly=e=>{console.error(e);const m=e?.message||String(e);return /duplicate key/i.test(m)?'That plate number is already in your fleet.':/row-level security|permission/i.test(m)?'Your role does not allow this action.':/fetch|network/i.test(m)?'Connection problem. Check your internet and try again.':'We could not save this. Please check the details and try again.'};
+const fail=e=>{root.innerHTML='<div class="box"><h2>Something went wrong</h2><p class="warnt">'+esc(friendly(e))+'</p><button class="b" onclick="boot()">Try again</button></div>'};
 
-async function boot(){const {data}=await sb.auth.getSession();S.user=data.session?.user||null;S.user?loadAcc():authView()}
-
+async function boot(){const {data}=await sb.auth.getSession();data.session?loadAcc():authView()}
 function authView(){
- root.innerHTML=`<div class="box"><h2>FleetLog</h2><form id="af"><label>Email<input id="ae" type="email" required></label><label>Password (8+ characters)<input id="ap" type="password" minlength="8" required></label>
- <button class="btn">Sign in</button> <button type="button" class="btn sm" id="su">Create account</button><p class="warn" id="am"></p></form></div>`;
+ root.innerHTML=`<div class="box"><div class="logo" style="color:var(--navy)">FleetLog</div><p class="m">Every service, fuel fill and photo, in one trusted record.</p><form id="af"><label>Email<input id="ae" type="email" required></label><label>Password (8+ characters)<input id="ap" type="password" minlength="8" required></label>
+ <button class="b">Sign in</button> <button type="button" class="b sm" id="su">Create account</button><p class="warnt" id="am"></p></form></div>`;
  $('af').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.signInWithPassword({email:$('ae').value,password:$('ap').value});error?$('am').textContent=error.message:boot()};
- $('su').onclick=async()=>{const {data,error}=await sb.auth.signUp({email:$('ae').value,password:$('ap').value});
-  if(error)$('am').textContent=error.message;else if(data.session)boot();else $('am').textContent='Check your email to confirm, then sign in.'};
+ $('su').onclick=async()=>{const {data,error}=await sb.auth.signUp({email:$('ae').value,password:$('ap').value});$('am').textContent=error?error.message:data.session?'':'Check your email to confirm, then sign in.';if(data?.session)boot()};
 }
 async function loadAcc(){
  const {data,error}=await sb.from('members').select('role,accounts(*)').limit(1);
- if(error)return fail(error);
- if(!data.length)return setupView();
+ if(error)return fail(error);if(!data.length)return setupView();
  S.role=data[0].role;S.acc=data[0].accounts;loadData();
 }
 function setupView(){
  root.innerHTML=`<div class="box"><h2>Set up your account</h2><form id="sf"><label>Name (business or your own)<input id="sn" required maxlength="60"></label>
- <label>Account type<select id="st"><option value="business">Business: team, reports and invoices</option><option value="personal">Personal tracker: my own vehicles</option></select></label><button class="btn">Create account</button></form></div>`;
+ <label>Account type<select id="st"><option value="business">Business: fleet, team and activity log</option><option value="personal">Personal: my own vehicles</option></select></label><button class="b">Create account</button></form></div>`;
  $('sf').onsubmit=async e=>{e.preventDefault();const {error}=await sb.rpc('create_account',{p_name:$('sn').value.trim(),p_type:$('st').value});error?fail(error):loadAcc()};
 }
 async function loadData(){
- const [t,v]=await Promise.all([sb.from('service_types').select('*').eq('active',true).order('name'),sb.from('vehicles').select('*').eq('archived',false).order('plate')]);
- if(t.error||v.error)return fail(t.error||v.error);
- S.types=t.data;S.veh=v.data;if(!S.veh.find(x=>x.id===S.sel))S.sel=S.veh[0]?.id||null;loadEnt();
+ const [t,v,e]=await Promise.all([sb.from('service_types').select('*').eq('active',true).order('name'),sb.from('vehicles').select('*').eq('archived',false).order('plate'),sb.from('entries').select('*').eq('account_id',S.acc.id).order('occurred_at',{ascending:false}).limit(5000)]);
+ if(t.error||v.error||e.error)return fail(t.error||v.error||e.error);
+ S.types=t.data;S.veh=v.data;S.ent=e.data;render();
 }
-async function loadEnt(){
- S.ent=[];S.urls={};
- if(S.sel){const {data,error}=await sb.from('entries').select('*').eq('vehicle_id',S.sel).order('occurred_at',{ascending:false});
-  if(error)return fail(error);S.ent=data;
-  const ps=S.ent.filter(e=>e.photo_path).map(e=>e.photo_path);
-  if(ps.length){const {data:u}=await sb.storage.from('entry-photos').createSignedUrls(ps,3600);(u||[]).forEach(x=>S.urls[x.path]=x.signedUrl)}}
- render();
-}
-const tn=id=>S.types.find(t=>t.id===id)?.name||'Service';
-function stats(){
- const a=[...S.ent].reverse(),o=a.filter(e=>e.odometer_km!=null),f=a.filter(e=>e.kind==='fuel'),sv=a.filter(e=>e.kind==='service');
- const L=f.reduce((s,e)=>s+(+e.litres||0),0),km=o.length>1?o.at(-1).odometer_km-o[0].odometer_km:0;
- let kmpl=null;if(f.length>1){const d=f.at(-1).odometer_km-f[0].odometer_km,l=L-(+f[0].litres||0);if(d>0&&l>0)kmpl=d/l}
- const days=o.length>1?Math.max(1,(new Date(o.at(-1).occurred_at)-new Date(o[0].occurred_at))/864e5):1;
- return {odo:Math.max(0,...o.map(e=>+e.odometer_km)),km,avg:km/days,L,kmpl,n:sv.length,svc:sv.reduce((s,e)=>s+(+e.cost||0),0),fc:f.reduce((s,e)=>s+(+e.cost||0),0),
-  h:S.ent.find(e=>e.kind==='checkin'&&e.health)?.health||'No check-in',flags:S.ent.filter(e=>e.flags?.length)};
-}
-function rows(){return S.ent.map(e=>`<tr><td>${fd(e.occurred_at)}</td><td>${e.kind==='service'?'Service: '+esc(tn(e.service_type_id)):e.kind==='fuel'?'Fuel '+e.litres+' L':'Check-in'+(e.health?' ('+e.health+')':'')}</td><td>${e.odometer_km??''}</td><td>${e.cost?e.cost:''}</td><td>${esc(e.note)}${(e.flags||[]).map(f=>`<div class="warn">&#9888; ${FLAG[f]||f}</div>`).join('')}</td>
- <td>${e.photo_path&&S.urls[e.photo_path]?`<img class="ph" src="${S.urls[e.photo_path]}" alt="Entry photo"><div class="m">${e.photo_source==='camera'?'Camera':'Upload'}: ${e.photo_taken_at?fd(e.photo_taken_at):''}</div>`:''}</td>
- <td>${can('owner','manager')?`<button class="x" data-del="${e.id}">Delete</button>`:''}</td></tr>`).join('')||'<tr><td colspan="7" class="m">No entries yet.</td></tr>'}
-const head='<tr><th>When</th><th>What</th><th>km</th><th>Cost</th><th>Notes</th><th>Photo</th><th></th></tr>';
+async function sign(paths){const need=[...new Set(paths.filter(p=>p&&!S.urls[p]))];if(need.length){const {data}=await sb.storage.from('entry-photos').createSignedUrls(need,3600);(data||[]).forEach(x=>x.signedUrl&&(S.urls[x.path]=x.signedUrl))}}
+const vname=v=>v?[v.make,v.model,v.year].filter(Boolean).join(' '):'';
+const plate=id=>S.veh.find(v=>v.id===id)?.plate||'';
 
-function render(){
- const v=S.veh.find(x=>x.id===S.sel);
- root.innerHTML=`<header><b>FleetLog</b><span>${esc(S.acc.name)} &middot; ${S.acc.type==='business'?'Business':'Personal'} &middot; ${S.role} <button class="btn sm" id="so">Sign out</button></span></header>
- <div class="app"><div class="side"><strong>Vehicles</strong><div style="margin:8px 0">${S.veh.map(x=>`<button class="veh ${x.id===S.sel?'on':''}" data-v="${x.id}"><b>${esc(x.plate)}</b><br><span class="m">${esc(x.model)}</span></button>`).join('')||'<p class="m">No vehicles yet.</p>'}</div>
- ${can('owner','manager')?`<form id="vf"><label>Plate<input id="vp" required maxlength="12"></label><label>Model<input id="vm" maxlength="40"></label><label>Type<input id="vc" maxlength="20" placeholder="bus, lorry, car"></label><label>Capacity<input id="vcap" maxlength="20" placeholder="14 seats or 10 tons"></label><button class="btn">Add vehicle</button></form>`:''}</div>
- <div class="main">${v?body(v):'<p class="m">Add your first vehicle to start a log.</p>'}</div></div>`;
- $('so').onclick=async()=>{await sb.auth.signOut();S.user=null;authView()};
- document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{S.sel=b.dataset.v;loadEnt()});
- if($('vf'))$('vf').onsubmit=async e=>{e.preventDefault();const {data,error}=await sb.from('vehicles').insert({account_id:S.acc.id,plate:$('vp').value.trim().toUpperCase(),model:$('vm').value.trim(),category:$('vc').value.trim(),capacity:$('vcap').value.trim()}).select().single();if(error)return alert(error.message);S.sel=data.id;loadData()};
- if(!v)return;
- document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;render()});
- document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{if(!confirm('Delete this entry?'))return;const {error}=await sb.from('entries').delete().eq('id',b.dataset.del);error?alert(error.message):loadEnt()});
- if(S.tab==='log'&&$('ef'))bindForm();
+function info(v){
+ const es=S.ent.filter(e=>e.vehicle_id===v.id),odo=Math.max(0,...es.map(e=>+e.odometer_km||0)),al=[];
+ S.types.forEach(t=>{const l=es.filter(e=>e.kind==='service'&&e.service_type_id===t.id).sort((a,b)=>new Date(b.occurred_at)-new Date(a.occurred_at))[0];if(!l)return;
+  const kl=t.limit_km?+l.odometer_km+t.limit_km-odo:null,dl=t.limit_days?Math.ceil((new Date(l.occurred_at).getTime()+t.limit_days*864e5-Date.now())/864e5):null;
+  const over=(kl!==null&&kl<0)||(dl!==null&&dl<0),near=(kl!==null&&kl<1000)||(dl!==null&&dl<14);
+  if(over||near)al.push({lvl:over?'over':'soon',t:`${t.name}: ${[kl!==null?(kl<0?n(-kl)+' km overdue':n(kl)+' km left'):'',dl!==null?(dl<0?-dl+' days overdue':dl+' days left'):''].filter(Boolean).join(' / ')}`})});
+ return {odo,al,worst:al.some(a=>a.lvl==='over')?'over':al.length?'soon':'ok'};
 }
-function body(v){
- const s=stats();
- return `<h2>${esc(v.plate)} <span class="m" style="font-size:16px">${esc(v.model)} ${esc(v.category)} ${esc(v.capacity)}</span></h2>
- <div class="tabs"><button data-tab="log" class="${S.tab==='log'?'on':''}">Log</button><button data-tab="rep" class="${S.tab==='rep'?'on':''}">Report</button></div>`+
- (S.tab==='rep'?`<div class="stats"><div class="stat"><b>${s.odo.toLocaleString()}</b><span>Odometer km</span></div><div class="stat"><b>${s.km.toLocaleString()}</b><span>Total km logged</span></div><div class="stat"><b>${Math.round(s.avg)}</b><span>Average km per day</span></div>
- <div class="stat"><b>${s.n}</b><span>Services</span></div><div class="stat"><b>${s.svc.toLocaleString()}</b><span>Service cost</span></div><div class="stat"><b>${s.L.toFixed(1)} L</b><span>Fuel consumed</span></div>
- <div class="stat"><b>${s.kmpl?s.kmpl.toFixed(1):'n/a'}</b><span>km per litre</span></div><div class="stat"><b>${esc(s.h)}</b><span>Engine health</span></div></div>
- <p><button class="btn" onclick="window.print()">Print or save PDF</button></p>
- <h3>Flagged entries</h3>${s.flags.length?s.flags.map(e=>`<div class="warn">&#9888; ${fd(e.occurred_at)}: ${e.flags.map(f=>FLAG[f]||f).join(', ')}</div>`).join(''):'<div class="m">None found.</div>'}
- <h3 style="margin-top:14px">Full history</h3><div class="t"><table>${head}${rows()}</table></div>`
- :`<div class="panel"><strong>Add entry</strong><form id="ef" style="margin-top:8px"><div class="grid">
- <label>Type<select id="ek"><option value="checkin">Odometer check-in</option><option value="service">Service</option><option value="fuel">Fuel fill</option></select></label>
- <label>Date and time<input type="datetime-local" id="ets" required></label><label>Odometer (km)<input type="number" id="eo" min="0" required></label>
+const alTags=i=>i.al.length?i.al.map(a=>`<span class="pill ${a.lvl}">${esc(a.t)}</span>`).join(''):'<span class="pill ok">All good</span>';
+
+function dash(){
+ const vs=S.veh.map(v=>({v,i:S.inf[v.id]}));
+ if(!biz())return `<h1>My vehicles</h1><p class="m">Your own records, kept simple.</p><div class="kpis">${vs.map(x=>`<div class="kpi" style="cursor:pointer" data-go="${x.v.id}"><span>${esc(x.v.plate)}</span><b>${n(x.i.odo)} km</b><div class="m">${esc(vname(x.v))}</div><div style="margin-top:8px">${alTags(x.i)}</div></div>`).join('')||'<p class="m">Add your first vehicle under Vehicles.</p>'}</div>`;
+ const c=k=>S.veh.filter(v=>v.status===k).length,ns=vs.filter(x=>x.i.worst!=='ok').length;
+ const cats={};S.veh.forEach(v=>{const k=v.category||'Not set';cats[k]=(cats[k]||0)+1});
+ const rows=vs.flatMap(x=>x.i.al.map(a=>({v:x.v,a}))).sort((p,q)=>(p.a.lvl==='over'?0:1)-(q.a.lvl==='over'?0:1));
+ return `<h1>Fleet overview</h1><div class="kpis"><div class="kpi"><b>${S.veh.length}</b><span>Total vehicles</span></div><div class="kpi ok"><b>${c('running')}</b><span>Running today</span></div><div class="kpi"><b>${c('active')}</b><span>Active, available</span></div><div class="kpi"><b>${c('idle')}</b><span>Resting</span></div><div class="kpi bad"><b>${c('repair')}</b><span>At repair</span></div><div class="kpi warn"><b>${ns}</b><span>Need service</span></div></div>
+ <div class="card"><h3>Fleet by type</h3>${Object.entries(cats).map(([k,v])=>`<span class="pill navyp">${esc(k)}: ${v}</span>`).join('')||'<span class="m">No vehicles yet.</span>'}</div>
+ <div class="card"><h3>Service warnings</h3><div class="t"><table><tr><th>Vehicle</th><th>What is due</th><th>Level</th></tr>${rows.map(r=>`<tr class="click" data-go="${r.v.id}"><td><b>${esc(r.v.plate)}</b><div class="m">${esc(vname(r.v))}</div></td><td>${esc(r.a.t)}</td><td><span class="pill ${r.a.lvl}">${r.a.lvl==='over'?'Overdue':'Due soon'}</span></td></tr>`).join('')||'<tr><td colspan="3" class="m">Nothing is due. Warnings appear when a service is within 1,000 km or 14 days of its limit.</td></tr>'}</table></div></div>`;
+}
+function vehForm(){
+ const v=S.vf==='new'?{}:S.veh.find(x=>x.id===S.vf)||{};
+ return `<div class="card"><h3>${S.vf==='new'?'Add vehicle':'Edit vehicle '+esc(v.plate)}</h3><form id="vf"><div class="grid">
+ <label>Plate number *<input id="vp" required maxlength="14" value="${esc(v.plate)}"></label>
+ <label>Make<input id="vmk" list="mk" maxlength="30" placeholder="Hyundai, Ford, Toyota" value="${esc(v.make)}"><datalist id="mk">${MAKES.map(m=>`<option value="${m}">`).join('')}</datalist></label>
+ <label>Model<input id="vm" maxlength="40" placeholder="Accent, Verna, Ranger" value="${esc(v.model)}"></label>
+ <label>Year<input id="vy" type="number" min="1980" max="2100" value="${esc(v.year)}"></label>
+ <label>Vehicle type<select id="vc"><option value="">Select</option>${CATS.map(c=>`<option ${v.category===c?'selected':''}>${c}</option>`).join('')}</select></label>
+ <label>Seats or load<input id="vcap" maxlength="30" placeholder="e.g. 14 seats, 10 tons" value="${esc(v.capacity)}"></label>
+ ${biz()?`<label>Status<select id="vs">${Object.entries(STAT).map(([k,t])=>`<option value="${k}" ${(v.status||'active')===k?'selected':''}>${t}</option>`).join('')}</select></label>`:''}
+ <label>Note (optional)<input id="vn" maxlength="200" value="${esc(v.note)}"></label></div>
+ <button class="b">Save vehicle</button> <button type="button" class="b sm" id="vx">Cancel</button>${S.vf!=='new'&&can('owner')?' <button type="button" class="x" id="vdel">Delete vehicle</button>':''}</form></div>`;
+}
+function vehs(){
+ return `<div class="row" style="justify-content:space-between"><h1>Vehicles</h1>${mgr()?'<button class="b" id="vnew">Add vehicle</button>':''}</div>${S.vf?vehForm():''}
+ <div class="card t"><table><tr><th>Plate</th><th>Vehicle</th><th>Type</th>${biz()?'<th>Status</th>':''}<th>Odometer</th><th>Health</th><th></th></tr>${S.veh.map(v=>{const i=S.inf[v.id];return `<tr><td><b>${esc(v.plate)}</b></td><td>${esc(vname(v))||'<span class="m">-</span>'}${v.note?`<div class="m">${esc(v.note)}</div>`:''}</td><td>${esc(v.category)} <span class="m">${esc(v.capacity)}</span></td>
+ ${biz()?`<td>${mgr()?`<select data-st="${v.id}">${Object.entries(STAT).map(([k,t])=>`<option value="${k}" ${v.status===k?'selected':''}>${t}</option>`).join('')}</select>`:`<span class="pill ${SC[v.status]}">${STAT[v.status]}</span>`}</td>`:''}
+ <td>${n(i.odo)} km</td><td>${alTags(i)}</td><td><button class="b sm" data-go="${v.id}">Open</button> ${mgr()?`<button class="b sm" data-ed="${v.id}">Edit</button>`:''}</td></tr>`}).join('')||'<tr><td colspan="7" class="m">No vehicles yet.</td></tr>'}</table></div>`;
+}
+const photoBox=(s,l)=>`<div class="pb"><strong class="m">${l}</strong><div class="row" style="margin-top:6px"><button type="button" class="b sm" data-cam="${s}">Open camera</button><label class="b sm" style="margin:0;cursor:pointer;text-transform:none;letter-spacing:0">Upload photo or PDF<input type="file" accept="image/*,application/pdf" data-up="${s}" hidden></label><span id="pv_${s}"></span></div></div>`;
+function files(e){return [e.photo_path,e.pump_photo_path].filter(Boolean).map(p=>/\.pdf$/i.test(p)?`<button class="th pdfb" data-open="${p}">PDF</button>`:S.urls[p]?`<button class="th" data-open="${p}"><img src="${S.urls[p]}" alt="Attachment"></button>`:'').join('')}
+function etable(list,withPlate,del){
+ return `<div class="t"><table><tr><th>When</th>${withPlate?'<th>Vehicle</th>':''}<th>What</th><th>Odometer</th><th>Cost</th><th>Details</th><th>Files</th>${del?'<th></th>':''}</tr>${list.map(e=>`<tr><td>${fd(e.occurred_at)}</td>${withPlate?`<td>${esc(plate(e.vehicle_id))}</td>`:''}
+ <td>${e.kind==='service'?'Service: '+esc(S.types.find(t=>t.id===e.service_type_id)?.name||'Service'):e.kind==='fuel'?'Fuel '+n2(e.litres)+' L':'Check-in'+(e.health?' ('+e.health+')':'')}</td><td>${e.odometer_km!=null?n(e.odometer_km)+' km':''}</td><td>${e.cost?n2(e.cost):''}</td>
+ <td>${esc(e.note)}${e.filled_by?`<div class="m">Filled by ${esc(e.filled_by)}</div>`:''}${e.payment_mode?`<div class="m">Paid: ${esc(e.payment_mode)}</div>`:''}${e.pump_location?`<div class="m">Pump: ${esc(e.pump_location)}</div>`:''}${(e.flags||[]).map(f=>`<div class="warnt">&#9888; ${FLAG[f]||f}</div>`).join('')}</td><td>${files(e)}</td>${del?`<td><button class="x" data-del="${e.id}">Delete</button></td>`:''}</tr>`).join('')||'<tr><td colspan="8" class="m">Nothing here yet.</td></tr>'}</table></div>`;
+}
+function detail(){
+ const v=S.veh.find(x=>x.id===S.sel);if(!v)return '<p class="m">Vehicle not found.</p>';const i=S.inf[v.id],es=S.ent.filter(e=>e.vehicle_id===v.id);
+ return `<button class="b sm" id="back">&larr; All vehicles</button><div class="row" style="margin:12px 0"><h1 style="margin:0">${esc(v.plate)}</h1>${biz()?`<span class="pill ${SC[v.status]}">${STAT[v.status]}</span>`:''}</div>
+ <p class="m">${esc(vname(v))} ${esc(v.category)} ${esc(v.capacity)} ${esc(v.note)}</p><div style="margin-bottom:14px">${alTags(i)}</div>
+ <div class="card"><h3>Add entry</h3><form id="ef"><div class="grid">
+ <label>Entry type<select id="ek"><option value="checkin">Odometer check-in</option><option value="service">Service</option><option value="fuel">Fuel fill</option></select></label>
+ <label>Date and time<input type="datetime-local" id="ets" required></label>
+ <label>Odometer (km)<input id="eo" inputmode="numeric" required placeholder="e.g. 1,50,000"></label>
  <label id="lt" hidden>Service type<select id="et">${S.types.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></label>
- <label id="ll" hidden>Litres<input type="number" id="el" min="0" step="0.1"></label>
+ <label id="ll" hidden>Litres<input type="number" id="el" min="0" step="0.01"></label>
  <label id="lh">Engine health<select id="eh"><option>Good</option><option>Warning</option><option>Critical</option></select></label>
- <label>Cost<input type="number" id="ec" min="0" step="0.01"></label><label>Notes<input id="en" maxlength="120"></label></div>
- <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0"><button type="button" class="btn sm" id="cam">Open camera</button><label class="btn sm" style="margin:0;cursor:pointer">Upload photo<input type="file" id="ei" accept="image/*" hidden></label>
- <label style="margin:0;font-weight:500"><input type="checkbox" id="stp" checked style="width:auto"> Print date and time on uploads</label><span id="pv"></span></div>
- <button class="btn" id="sv">Save entry</button></form></div><div class="t"><table>${head}${rows()}</table></div>`);
+ <label>Cost<input type="number" id="ec" min="0" step="0.01" placeholder="0"></label>
+ ${biz()?`<label class="fu" hidden>Filled by (name)<input id="efb" maxlength="60"></label><label class="fu" hidden>Payment mode<select id="epm"><option value="">Select</option>${PAY.map(p=>`<option>${p}</option>`).join('')}</select></label><label class="fu" hidden>Fuel pump location<input id="epl" maxlength="80"></label>`:''}
+ <label>Notes (optional)<input id="en" maxlength="150"></label></div>
+ ${photoBox('main','Photo or PDF (odometer, part, invoice)')}<div id="pumpbox" hidden>${photoBox('pump','Fuel pump reading photo')}</div>
+ <label style="text-transform:none;letter-spacing:0;font-weight:500"><input type="checkbox" id="stp" checked style="width:auto;margin-right:6px">Print date and time on uploaded photos</label>
+ <p class="m">Old entries are fine. Choose the real date above, even if the photo was taken on a different day.</p><button class="b" id="sv">Save entry</button></form></div>
+ <div class="card"><h3>History</h3>${etable(es,false,mgr())}</div>`;
 }
-function stampIt(g,w,h,ts){const s=Math.max(12,Math.round(w/26));g.font='bold '+s+'px sans-serif';g.fillStyle='rgba(0,0,0,.65)';g.fillRect(0,h-s*1.6,w,s*1.6);g.fillStyle='#f2b01e';g.fillText(new Date(ts).toLocaleString(),s*.5,h-s*.5)}
-const toBlob=c=>new Promise(r=>c.toBlob(r,'image/jpeg',.7));
-function shrink(file,stamp){return new Promise(res=>{const i=new Image();i.onerror=()=>res(null);i.onload=async()=>{const k=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;const g=c.getContext('2d');g.drawImage(i,0,0,c.width,c.height);if(stamp)stampIt(g,c.width,c.height,file.lastModified||Date.now());URL.revokeObjectURL(i.src);res(await toBlob(c))};i.src=URL.createObjectURL(file)})}
-async function openCam(done){
- if(!navigator.mediaDevices?.getUserMedia){alert('Camera is not available here. Use Upload photo, or open the page over HTTPS.');return}
- let s;try{s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})}catch(e){alert('Camera permission was denied.');return}
- const o=document.createElement('div');o.className='cam';o.innerHTML='<video autoplay playsinline muted></video><div><button class="btn" id="snap">Take photo</button> <button class="btn sm" id="cx">Cancel</button></div>';document.body.append(o);
- const v=o.querySelector('video');v.srcObject=s;const stop=()=>{s.getTracks().forEach(x=>x.stop());o.remove()};o.querySelector('#cx').onclick=stop;
- o.querySelector('#snap').onclick=async()=>{const k=Math.min(1,900/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement('canvas');c.width=v.videoWidth*k;c.height=v.videoHeight*k;const g=c.getContext('2d');g.drawImage(v,0,0,c.width,c.height);const ts=Date.now();stampIt(g,c.width,c.height,ts);const b=await toBlob(c);stop();done({blob:b,pts:ts,src:'camera'})};
+function repData(){
+ const f=S.flt,now=new Date(),d0=new Date(now.getFullYear(),now.getMonth(),now.getDate());let from=null,to=null;
+ if(f.p==='week'){from=new Date(d0-((d0.getDay()+6)%7)*864e5);to=new Date(+from+7*864e5)}
+ else if(f.p==='month'){from=new Date(now.getFullYear(),now.getMonth(),1);to=new Date(now.getFullYear(),now.getMonth()+1,1)}
+ else if(f.p==='last'){from=new Date(now.getFullYear(),now.getMonth()-1,1);to=new Date(now.getFullYear(),now.getMonth(),1)}
+ else if(f.p==='custom'){from=f.from?new Date(f.from):null;to=f.to?new Date(+new Date(f.to)+864e5):null}
+ const list=S.ent.filter(e=>{const t=new Date(e.occurred_at);return(f.v==='all'||e.vehicle_id===f.v)&&(f.k==='all'||e.kind===f.k)&&(!from||t>=from)&&(!to||t<to)}).sort((a,b)=>new Date(a.occurred_at)-new Date(b.occurred_at));
+ const per=S.veh.filter(v=>f.v==='all'||v.id===f.v).map(v=>{const es=list.filter(e=>e.vehicle_id===v.id),o=es.filter(e=>e.odometer_km!=null).map(e=>+e.odometer_km),fu=es.filter(e=>e.kind==='fuel'),sv=es.filter(e=>e.kind==='service');
+  const L=fu.reduce((a,e)=>a+(+e.litres||0),0);let kmpl=null;if(fu.length>1){const d=fu.at(-1).odometer_km-fu[0].odometer_km,l=L-(+fu[0].litres||0);if(d>0&&l>0)kmpl=d/l}
+  return{v,n:es.length,km:o.length>1?Math.max(...o)-Math.min(...o):0,L,fc:fu.reduce((a,e)=>a+(+e.cost||0),0),sn:sv.length,sc:sv.reduce((a,e)=>a+(+e.cost||0),0),kmpl}});
+ return{list,per};
 }
-function bindForm(){
- const k=$('ek'),sync=()=>{$('lt').hidden=k.value!=='service';$('ll').hidden=k.value!=='fuel';$('lh').hidden=k.value!=='checkin'};k.onchange=sync;sync();
- const n=new Date();n.setMinutes(n.getMinutes()-n.getTimezoneOffset());$('ets').value=n.toISOString().slice(0,16);$('eo').value=stats().odo||'';
- pend=null;const pv=()=>{$('pv').innerHTML=pend?'<img class="ph" src="'+URL.createObjectURL(pend.blob)+'" alt="Attached photo"> <button type="button" class="x" id="rp">Remove</button>':'';if(pend)$('rp').onclick=()=>{pend=null;pv()}};
- $('ei').onchange=async()=>{const f=$('ei').files[0];if(!f)return;const b=await shrink(f,$('stp').checked);if(b){pend={blob:b,pts:f.lastModified,src:'upload'};pv()}};
- $('cam').onclick=()=>openCam(p=>{pend=p;pv()});
+async function reps(){
+ const f=S.flt,{list,per}=repData(),sum=k=>per.reduce((a,x)=>a+x[k],0),shown=list.slice(-150).reverse();
+ await sign(shown.flatMap(e=>[e.photo_path,e.pump_photo_path]));
+ const vn=f.v==='all'?'All vehicles':plate(f.v),pl=f.p==='custom'?`${f.from||'start'} to ${f.to||'today'}`:PL[f.p];
+ return `<h1>Reports</h1><div class="card noprint"><div class="bar">
+ <label>Vehicle<select id="fv"><option value="all">All vehicles</option>${S.veh.map(v=>`<option value="${v.id}" ${f.v===v.id?'selected':''}>${esc(v.plate)}</option>`).join('')}</select></label>
+ <label>Period<select id="fp">${Object.entries(PL).map(([k,t])=>`<option value="${k}" ${f.p===k?'selected':''}>${t}</option>`).join('')}</select></label>
+ <label ${f.p==='custom'?'':'hidden'}>From<input type="date" id="ff" value="${f.from}"></label><label ${f.p==='custom'?'':'hidden'}>To<input type="date" id="ft" value="${f.to}"></label>
+ <label>Entry type<select id="fk"><option value="all">Everything</option><option value="fuel" ${f.k==='fuel'?'selected':''}>Fuel only</option><option value="service" ${f.k==='service'?'selected':''}>Services only</option><option value="checkin" ${f.k==='checkin'?'selected':''}>Check-ins only</option></select></label></div>
+ <button class="b" id="csv">Download CSV</button> <button class="b sm" id="prt">Print report</button></div>
+ <div id="rp"><h2>${esc(S.acc.name)}: ${esc(vn)}</h2><p class="m">${esc(pl)} &middot; ${esc(f.k==='all'?'all entries':KIND[f.k])} &middot; created ${new Date().toLocaleDateString()}</p>
+ <div class="kpis"><div class="kpi"><b>${n(list.length)}</b><span>Entries</span></div><div class="kpi"><b>${n(sum('km'))}</b><span>Km driven</span></div><div class="kpi"><b>${n2(sum('L'))}</b><span>Fuel litres</span></div><div class="kpi"><b>${n2(sum('fc'))}</b><span>Fuel cost</span></div><div class="kpi"><b>${n(sum('sn'))}</b><span>Services</span></div><div class="kpi"><b>${n2(sum('sc'))}</b><span>Service cost</span></div></div>
+ ${f.v==='all'?`<div class="card t"><h3>By vehicle</h3><table><tr><th>Vehicle</th><th>Km</th><th>Fuel L</th><th>Fuel cost</th><th>Km/L</th><th>Services</th><th>Service cost</th></tr>${per.map(x=>`<tr><td><b>${esc(x.v.plate)}</b></td><td>${n(x.km)}</td><td>${n2(x.L)}</td><td>${n2(x.fc)}</td><td>${x.kmpl?x.kmpl.toFixed(1):'-'}</td><td>${x.sn}</td><td>${n2(x.sc)}</td></tr>`).join('')}</table></div>`:''}
+ <div class="card"><h3>Entries</h3>${etable(shown,true,false)}${list.length>150?'<p class="m">Showing the latest 150. The CSV has all of them.</p>':''}</div></div>`;
+}
+function csv(){
+ const {list}=repData(),q=s=>'"'+String(s??'').replace(/"/g,'""')+'"',rows=[['Date','Vehicle','Type','Service','Odometer km','Litres','Cost','Filled by','Payment','Pump location','Notes']];
+ list.forEach(e=>rows.push([new Date(e.occurred_at).toISOString(),plate(e.vehicle_id),KIND[e.kind],S.types.find(t=>t.id===e.service_type_id)?.name||'',e.odometer_km,e.litres,e.cost,e.filled_by,e.payment_mode,e.pump_location,e.note]));
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv'}));a.download='fleetlog-report.csv';a.click();
+}
+async function audit(){
+ const {data,error}=await sb.from('audit_log').select('*').eq('account_id',S.acc.id).order('at',{ascending:false}).limit(200);
+ if(error)return `<h1>Activity log</h1><p class="warnt">${esc(friendly(error))}</p>`;
+ const AC={INSERT:'Added',UPDATE:'Edited',DELETE:'Deleted'},ig=['flags','server_received_at','created_by','id'];
+ const what=a=>{const r=a.new_data||a.old_data;return a.table_name==='vehicles'?'Vehicle '+r.plate:(KIND[r.kind]||'Entry')+' &middot; '+esc(plate(r.vehicle_id))+(r.odometer_km!=null?' &middot; '+n(r.odometer_km)+' km':'')};
+ const diff=a=>a.action!=='UPDATE'?'':Object.keys(a.new_data).filter(k=>!ig.includes(k)&&JSON.stringify(a.new_data[k])!==JSON.stringify(a.old_data[k])).slice(0,5).map(k=>`${esc(k)}: ${esc(a.old_data[k]??'-')} &rarr; ${esc(a.new_data[k]??'-')}`).join('<br>');
+ return `<h1>Activity log</h1><p class="m">Every vehicle and entry change, with who did it and when. The latest 200 are shown.</p><div class="card t"><table><tr><th>When</th><th>Person</th><th>Action</th><th>What</th><th>Changes</th></tr>${data.map(a=>`<tr><td>${fd(a.at)}</td><td>${esc(a.user_email||'unknown')}</td><td><span class="pill ${a.action==='DELETE'?'over':a.action==='UPDATE'?'soon':'ok'}">${AC[a.action]}</span></td><td>${what(a)}</td><td class="m">${diff(a)}</td></tr>`).join('')||'<tr><td colspan="5" class="m">No activity yet.</td></tr>'}</table></div>`;
+}
+async function render(){
+ S.veh.forEach(v=>S.inf[v.id]=info(v));
+ const nav=[['dash',biz()?'Dashboard':'Home'],['veh','Vehicles'],['rep','Reports']];if(biz()&&mgr())nav.push(['aud','Activity log']);
+ if(!nav.some(x=>x[0]===S.page)&&S.page!=='det')S.page='dash';
+ let body='';
+ if(S.page==='det'){await sign(S.ent.filter(e=>e.vehicle_id===S.sel).slice(0,60).flatMap(e=>[e.photo_path,e.pump_photo_path]));body=detail()}
+ else if(S.page==='veh')body=vehs();else if(S.page==='rep')body=await reps();else if(S.page==='aud')body=await audit();else body=dash();
+ root.innerHTML=`<header><span class="logo">FleetLog</span><span class="who">${esc(S.acc.name)} &middot; ${biz()?'Business':'Personal'} &middot; ${S.role} <button class="b sm" id="so" style="margin-left:8px">Sign out</button></span></header>
+ <div class="app noprint-wrap"><nav class="noprint">${nav.map(x=>`<button data-pg="${x[0]}" class="${S.page===x[0]||(S.page==='det'&&x[0]==='veh')?'on':''}">${x[1]}</button>`).join('')}</nav><main>${body}</main></div>`;
+ bind();
+}
+function bind(){
+ $('so').onclick=async()=>{await sb.auth.signOut();authView()};
+ document.querySelectorAll('[data-pg]').forEach(b=>b.onclick=()=>{S.page=b.dataset.pg;S.vf=null;render()});
+ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{S.sel=b.dataset.go;S.page='det';render()});
+ document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openLb(b.dataset.open));
+ document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{if(!confirm('Delete this entry? This is recorded in the activity log.'))return;const {error}=await sb.from('entries').delete().eq('id',b.dataset.del);error?toast(friendly(error),1):(toast('Entry deleted.'),loadData())});
+ if(S.page==='veh'){
+  if($('vnew'))$('vnew').onclick=()=>{S.vf='new';render()};
+  document.querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>{S.vf=b.dataset.ed;render()});
+  document.querySelectorAll('[data-st]').forEach(s=>s.onchange=async()=>{const {error}=await sb.from('vehicles').update({status:s.value}).eq('id',s.dataset.st);error?toast(friendly(error),1):(toast('Status updated.'),loadData())});
+  if($('vf')){$('vx').onclick=()=>{S.vf=null;render()};
+   if($('vdel'))$('vdel').onclick=async()=>{if(!confirm('Delete this vehicle and all its entries? This cannot be undone.'))return;const {error}=await sb.from('vehicles').delete().eq('id',S.vf);error?toast(friendly(error),1):(S.vf=null,toast('Vehicle deleted.'),loadData())};
+   $('vf').onsubmit=async e=>{e.preventDefault();const row={plate:$('vp').value.trim().toUpperCase(),make:$('vmk').value.trim()||null,model:$('vm').value.trim()||null,year:+$('vy').value||null,category:$('vc').value||null,capacity:$('vcap').value.trim()||null,note:$('vn').value.trim()||null};if(biz())row.status=$('vs').value;
+    const r=S.vf==='new'?await sb.from('vehicles').insert({...row,account_id:S.acc.id}):await sb.from('vehicles').update(row).eq('id',S.vf);
+    r.error?toast(friendly(r.error),1):(S.vf=null,toast('Vehicle saved.'),loadData())}}
+ }
+ if(S.page==='det')bindDetail();
+ if(S.page==='rep'){const g=()=>{S.flt={v:$('fv').value,p:$('fp').value,from:$('ff').value,to:$('ft').value,k:$('fk').value};render()};['fv','fp','ff','ft','fk'].forEach(i=>$(i).onchange=g);$('csv').onclick=csv;$('prt').onclick=()=>window.print()}
+}
+function bindDetail(){
+ $('back').onclick=()=>{S.page='veh';render()};
+ const k=$('ek'),sync=()=>{$('lt').hidden=k.value!=='service';$('ll').hidden=k.value!=='fuel';$('lh').hidden=k.value!=='checkin';$('pumpbox').hidden=k.value!=='fuel';document.querySelectorAll('.fu').forEach(x=>x.hidden=k.value!=='fuel');$('el').required=k.value==='fuel'};k.onchange=sync;sync();
+ const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$('ets').value=d.toISOString().slice(0,16);
+ $('eo').value=n(S.inf[S.sel].odo)==='0'?'':n(S.inf[S.sel].odo);$('eo').oninput=e=>{const x=num(e.target.value);e.target.value=x?x.toLocaleString('en-IN'):''};
+ P.main=null;P.pump=null;
+ const pv=s=>{const p=P[s],el=$('pv_'+s);el.innerHTML=p?(p.type==='pdf'?'<span class="pill over">PDF</span> '+esc(p.name):'<img class="ph" src="'+p.url+'" alt="Attached">')+' <button type="button" class="x" data-rm>Remove</button>':'';el.querySelector('[data-rm]')?.addEventListener('click',()=>{P[s]=null;pv(s)})};
+ document.querySelectorAll('[data-up]').forEach(i=>i.onchange=async()=>{const f=i.files[0],s=i.dataset.up;if(!f)return;
+  if(f.type==='application/pdf')P[s]={blob:f,type:'pdf',name:f.name,pts:f.lastModified,src:'upload'};
+  else{const b=await shrink(f,$('stp').checked);if(!b)return toast('That image could not be read. Try another photo.',1);P[s]={blob:b,type:'img',url:URL.createObjectURL(b),pts:f.lastModified,src:'upload'}}pv(s)});
+ document.querySelectorAll('[data-cam]').forEach(b=>b.onclick=()=>openCam(p=>{p.url=URL.createObjectURL(p.blob);p.type='img';P[b.dataset.cam]=p;pv(b.dataset.cam)}));
  $('ef').onsubmit=async e=>{e.preventDefault();$('sv').disabled=true;
-  let path=null;
-  if(pend){path=`${S.acc.id}/${S.sel}/${crypto.randomUUID()}.jpg`;const {error}=await sb.storage.from('entry-photos').upload(path,pend.blob,{contentType:'image/jpeg'});if(error){$('sv').disabled=false;return alert('Photo upload failed: '+error.message)}}
-  const row={account_id:S.acc.id,vehicle_id:S.sel,kind:k.value,occurred_at:new Date($('ets').value).toISOString(),odometer_km:+$('eo').value,cost:+$('ec').value||0,note:$('en').value.trim(),photo_path:path,photo_source:pend?.src||null,photo_taken_at:pend?new Date(pend.pts).toISOString():null};
-  if(k.value==='service')row.service_type_id=$('et').value;if(k.value==='fuel')row.litres=+$('el').value;if(k.value==='checkin')row.health=$('eh').value;
-  const {error}=await sb.from('entries').insert(row);$('sv').disabled=false;error?alert(error.message):loadEnt();
- };
+  try{const kd=k.value,mp=await up(P.main),pp=kd==='fuel'?await up(P.pump):null;
+   const row={account_id:S.acc.id,vehicle_id:S.sel,kind:kd,occurred_at:new Date($('ets').value).toISOString(),odometer_km:num($('eo').value),cost:+$('ec').value||0,note:$('en').value.trim()||null,photo_path:mp,photo_source:P.main?.src||null,photo_taken_at:P.main?new Date(P.main.pts||Date.now()).toISOString():null};
+   if(kd==='service')row.service_type_id=$('et').value;
+   if(kd==='fuel'){row.litres=+$('el').value;row.pump_photo_path=pp;if(biz()){row.payment_mode=$('epm').value||null;row.filled_by=$('efb').value.trim()||null;row.pump_location=$('epl').value.trim()||null}}
+   if(kd==='checkin')row.health=$('eh').value;
+   const {error}=await sb.from('entries').insert(row);if(error)throw error;toast('Entry saved.');await loadData();
+  }catch(err){toast(friendly(err),1);$('sv')&&($('sv').disabled=false)}};
+}
+async function up(p){if(!p)return null;const path=`${S.acc.id}/${S.sel}/${crypto.randomUUID()}.${p.type==='pdf'?'pdf':'jpg'}`;const {error}=await sb.storage.from('entry-photos').upload(path,p.blob,{contentType:p.type==='pdf'?'application/pdf':'image/jpeg'});if(error)throw error;return path}
+function openLb(p){const u=S.urls[p];if(!u)return;const o=document.createElement('div');o.className='lb';o.innerHTML=(/\.pdf$/i.test(p)?`<iframe src="${u}"></iframe>`:`<img src="${u}" alt="Attachment">`)+`<div class="row"><a class="b" href="${u}" target="_blank" rel="noopener">Open in new tab</a><button class="b sm" id="lbx">Close</button></div>`;document.body.append(o);o.onclick=e=>{if(e.target===o||e.target.id==='lbx')o.remove()}}
+function stampIt(g,w,h,ts){const s=Math.max(14,Math.round(w/28));g.font='bold '+s+'px sans-serif';g.fillStyle='rgba(0,0,0,.65)';g.fillRect(0,h-s*1.6,w,s*1.6);g.fillStyle='#E6CF9B';g.fillText(new Date(ts).toLocaleString(),s*.5,h-s*.5)}
+const toBlob=c=>new Promise(r=>c.toBlob(r,'image/jpeg',.78));
+function shrink(file,stamp){return new Promise(res=>{const i=new Image();i.onerror=()=>res(null);i.onload=async()=>{const k=Math.min(1,1200/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;const g=c.getContext('2d');g.drawImage(i,0,0,c.width,c.height);if(stamp)stampIt(g,c.width,c.height,file.lastModified||Date.now());URL.revokeObjectURL(i.src);res(await toBlob(c))};i.src=URL.createObjectURL(file)})}
+async function openCam(done){
+ if(!navigator.mediaDevices?.getUserMedia)return toast('Camera is not available here. Use Upload photo instead.',1);
+ let s;try{s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})}catch(e){return toast('Camera permission was denied.',1)}
+ const o=document.createElement('div');o.className='cam';o.innerHTML='<video autoplay playsinline muted></video><div class="row"><button class="b" id="snap">Take photo</button><button class="b sm" id="cx">Cancel</button></div>';document.body.append(o);
+ const v=o.querySelector('video');v.srcObject=s;const stop=()=>{s.getTracks().forEach(x=>x.stop());o.remove()};o.querySelector('#cx').onclick=stop;
+ o.querySelector('#snap').onclick=async()=>{const k=Math.min(1,1200/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement('canvas');c.width=v.videoWidth*k;c.height=v.videoHeight*k;const g=c.getContext('2d');g.drawImage(v,0,0,c.width,c.height);const ts=Date.now();stampIt(g,c.width,c.height,ts);const b=await toBlob(c);stop();done({blob:b,pts:ts,src:'camera'})};
 }
 boot();
 </script>
