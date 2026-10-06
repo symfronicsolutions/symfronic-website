@@ -1,546 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Symfronic Solutions is a leading subcontract execution company for Electrical & ELV works, offering installation, structured cabling, testing, and site support.">
-  <title>Symfronic Solutions | Electrical & ELV Subcontractor</title>
-  <!-- Google Fonts + Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #ffffff;
-      color: #1e293b;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* ===== HEADER / NAVIGATION (Tejas-inspired clean, corporate) ===== */
-    .site-header {
-      background: #ffffff;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #eef2f6;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    }
-
-    .header-flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    /* Logo Area - professional wordmark with subtle icon */
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-    .logo-icon {
-      background: #0f2b3d;
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: #ffffff;
-    }
-    .logo-text h1 {
-      font-size: 1.55rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: #0a1c2c;
-      margin: 0;
-      line-height: 1.2;
-    }
-    .logo-text span {
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: #5b6e8c;
-      letter-spacing: 0.3px;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 500;
-      color: #1f3a4b;
-      transition: color 0.2s;
-      font-size: 0.95rem;
-    }
-    .nav-links a:hover {
-      color: #2273a7;
-    }
-    .cta-nav {
-      background: #0f2b3d;
-      color: white !important;
-      padding: 8px 22px;
-      border-radius: 32px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .cta-nav:hover {
-      background: #1e4a6f;
-      color: white !important;
-    }
-
-    /* Buttons */
-    .btn-primary {
-      display: inline-block;
-      background: #0f2b3d;
-      color: white;
-      font-weight: 600;
-      padding: 12px 30px;
-      border-radius: 40px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-    .btn-primary:hover {
-      background: #1e4a6f;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px -8px rgba(15,43,61,0.3);
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1.5px solid #0f2b3d;
-      color: #0f2b3d;
-      padding: 10px 26px;
-      border-radius: 40px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-block;
-    }
-    .btn-outline:hover {
-      background: #0f2b3d;
-      color: white;
-    }
-
-    /* Hero Section - clean, spacious, trust signals */
-    .hero {
-      padding: 70px 0 60px;
-      background: #fafcff;
-      border-bottom: 1px solid #edf2f7;
-    }
-    .hero-grid {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 50px;
-    }
-    .hero-content {
-      flex: 1.2;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: #eef2ff;
-      padding: 4px 14px;
-      border-radius: 30px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #0f2b3d;
-      margin-bottom: 24px;
-    }
-    .hero-content h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      color: #0a1c2c;
-      margin-bottom: 20px;
-    }
-    .hero-highlight {
-      color: #1e6d9b;
-      border-bottom: 2px solid #cbdde9;
-    }
-    .hero-desc {
-      font-size: 1.1rem;
-      color: #334155;
-      max-width: 560px;
-      margin-bottom: 32px;
-    }
-    .hero-stats {
-      flex: 0.8;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      background: white;
-      border-radius: 28px;
-      padding: 28px 28px;
-      box-shadow: 0 12px 30px -12px rgba(0,0,0,0.08);
-      border: 1px solid #eef2f8;
-    }
-    .stat-item {
-      flex: 1;
-      min-width: 100px;
-    }
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #0f2b3d;
-      line-height: 1.2;
-    }
-
-    /* Section styling */
-    .section {
-      padding: 80px 0;
-    }
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.3px;
-      color: #0a1c2c;
-    }
-    .section-sub {
-      color: #5b6e8c;
-      max-width: 680px;
-      margin-bottom: 48px;
-      font-size: 1.05rem;
-    }
-
-    /* Service Cards - clean corporate cards */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-    }
-    .service-card {
-      background: white;
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.02);
-      transition: all 0.25s;
-      border: 1px solid #eef2f8;
-    }
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
-      border-color: #dce5ef;
-    }
-    .service-icon {
-      font-size: 2.2rem;
-      color: #1e6d9b;
-      margin-bottom: 20px;
-    }
-
-    /* Gallery / Project Showcase */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 28px;
-      margin-top: 20px;
-    }
-    .gallery-item {
-      background: #ffffff;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
-      transition: 0.2s;
-      border: 1px solid #edf2f7;
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-    .gallery-caption {
-      padding: 18px 20px 22px;
-    }
-
-    /* Partner / Testimonial-like quotes (Tejas style) */
-    .testimonial-section {
-      background: #f8fafd;
-      border-radius: 48px;
-      margin: 20px 0;
-    }
-    .testimonial-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
-      padding: 48px 32px;
-    }
-    .testimonial-card {
-      flex: 1;
-      background: white;
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid #eef2f8;
-    }
-    .testimonial-card i {
-      color: #cddde9;
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-
-    /* execution support */
-    .support-zone {
-      background: #0f2b3d;
-      border-radius: 48px;
-      color: white;
-    }
-    .support-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 48px;
-      align-items: center;
-      padding: 52px 44px;
-    }
-    .support-list {
-      list-style: none;
-      margin: 24px 0;
-    }
-    .support-list li {
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .support-list i {
-      color: #b9d2e8;
-    }
-
-    /* contact */
-    .contact-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 50px;
-      background: #ffffff;
-      border-radius: 44px;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.06);
-      padding: 48px;
-      border: 1px solid #eef2f8;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 28px;
-      border: 1px solid #dce5ef;
-      font-family: inherit;
-    }
-    .footer {
-      background: #0a1c2c;
-      color: #cbd5e1;
-      padding: 48px 0;
-      text-align: center;
-    }
-    @media (max-width: 780px) {
-      .hero-content h1 { font-size: 2.2rem; }
-      .section-title { font-size: 1.8rem; }
-      .support-flex { padding: 32px 24px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FleetLog by Symfronic – Simple fleet maintenance tracking</title>
+<meta name="description" content="Log services, parts, photos, fuel and reminders for every vehicle. Built for small rental, bus and logistics fleets. Free for 3 vehicles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14212b;--paper:#eef0f2;--card:#fff;--line:#cfd5da;--amber:#f2b01e;--ok:#2e7d5b;--bad:#c8452f;--mute:#5b6770}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 Barlow,system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+h1,h2,h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;line-height:1.05;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{background:var(--ink);color:#fff}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font:700 24px 'Barlow Condensed',sans-serif;text-decoration:none;letter-spacing:.5px}
+.logo b{color:var(--amber)}
+nav a{margin-left:20px;text-decoration:none;font-weight:500;font-size:15px}
+.hero{background:var(--ink);color:#fff;padding:56px 0 72px;border-bottom:8px solid var(--amber)}
+.hero h1{font-size:clamp(40px,7vw,76px);max-width:11em}
+.hero p{max-width:34em;font-size:19px;color:#c9d2d9;margin:18px 0 28px}
+.btn{display:inline-block;background:var(--amber);color:var(--ink);font:600 16px Barlow,sans-serif;padding:12px 22px;border:0;border-radius:4px;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:#fff;border:2px solid #5d6b76;margin-left:10px}
+.btn:hover{filter:brightness(1.08)}
+section{padding:64px 0}
+h2{font-size:clamp(30px,4.5vw,44px);margin-bottom:10px}
+.sub{color:var(--mute);max-width:36em;margin:0 0 28px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.f{border-left:4px solid var(--amber);padding:2px 0 2px 14px}
+.f h3{font-size:23px;margin-bottom:4px}.f p{margin:0;color:var(--mute);font-size:15px}
+/* app */
+#try{background:#dfe3e6}
+.app{display:grid;grid-template-columns:260px 1fr;background:var(--card);border:2px solid var(--ink);border-radius:6px;overflow:hidden}
+.side{background:#f6f7f8;border-right:2px solid var(--ink);padding:14px}
+.veh{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:4px;padding:10px;margin-bottom:8px;cursor:pointer;font:inherit}
+.veh.on{border:2px solid var(--ink);background:#fff7e0}
+.veh small{display:block;color:var(--mute)}
+.main{padding:18px;min-width:0}
+.plate{display:inline-block;font:700 22px 'Barlow Condensed',sans-serif;border:2px solid var(--ink);border-radius:4px;padding:0 10px;background:#fff}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.stat{flex:1 1 130px;border:1px solid var(--line);border-radius:4px;padding:8px 12px}
+.stat b{display:block;font:700 26px 'Barlow Condensed',sans-serif}
+.stat span{font-size:13px;color:var(--mute)}
+.due{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{padding:4px 10px;border-radius:99px;font-size:14px;font-weight:600;color:#fff}
+.tag.ok{background:var(--ok)}.tag.soon{background:#b9830b}.tag.over{background:var(--bad)}
+form.row{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));align-items:end;margin-bottom:12px}
+label{font-size:13px;font-weight:600;display:block}
+input,select,textarea{width:100%;font:inherit;padding:8px;border:1px solid #98a2aa;border-radius:4px;background:#fff;margin-top:3px}
+.log{list-style:none;margin:0;padding:0}
+.log li{display:flex;gap:12px;border-top:1px solid var(--line);padding:12px 0}
+.log img{width:64px;height:64px;object-fit:cover;border-radius:4px;border:1px solid var(--line)}
+.log .t{font-weight:600}.log .m{font-size:14px;color:var(--mute)}
+.log button{margin-left:auto;background:none;border:0;color:var(--bad);cursor:pointer;font:inherit;align-self:flex-start}
+.empty{color:var(--mute);padding:16px 0}
+.panel{border:1px dashed #98a2aa;border-radius:4px;padding:12px;margin-bottom:14px;background:#fafbfb}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+/* pricing */
+.price{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px}
+.price.hi{border:2px solid var(--ink);box-shadow:6px 6px 0 var(--amber)}
+.price h3{font-size:26px}.price .p{font:700 36px 'Barlow Condensed',sans-serif}
+.price ul{padding-left:18px;margin:8px 0 0;color:var(--mute);font-size:15px}
+.wait{background:var(--ink);color:#fff}
+.wait form{display:flex;gap:10px;flex-wrap:wrap;max-width:520px}
+.wait input{flex:1 1 220px;margin:0}
+footer{padding:28px 0;font-size:14px;color:var(--mute)}
+@media(max-width:720px){.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:2px solid var(--ink)}nav{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
-<header class="site-header">
-  <div class="container header-flex">
-    <a class="logo-area" style="text-decoration: none;" href="#">
-      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
-      <div class="logo-text">
-        <h1>Symfronic Solutions</h1>
-        <span>ELECTRICAL & ELV CONTRACTING</span>
-      </div>
-    </a>
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-      <a href="#contact" class="cta-nav"><i class="fas fa-helmet-safety"></i> Site Support</a>
-    </div>
-  </div>
-</header>
+<header><div class="wrap"><a class="logo" href="#">Fleet<b>Log</b> <span style="font-weight:600;font-size:14px;color:#9fb0bc">by Symfronic</span></a>
+<nav><a href="#features">Features</a><a href="#try">Try it</a><a href="#pricing">Pricing</a><a href="#join">Join waitlist</a><a href="cloud.html">Sign in</a></nav></div></header>
 
-<main>
-  <!-- Hero section -->
-  <section id="home" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="hero-badge"><i class="fas fa-hard-hat"></i> Subcontract Execution Partner</div>
-        <h1>Powering projects with <span class="hero-highlight">Electrical & ELV expertise</span></h1>
-        <p class="hero-desc">Installation · Structured Cabling · Testing · Site execution support. Deploy technical teams for ongoing projects.</p>
-        <div class="hero-buttons">
-          <a href="#contact" class="btn-primary"><i class="fas fa-charging-station"></i> Request team</a>
-          <a href="#services" class="btn-outline">Our capabilities</a>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item"><div class="stat-number">20+</div><div>Projects delivered</div></div>
-        <div class="stat-item"><div class="stat-number">24/7</div><div>Rapid deployment</div></div>
-        <div class="stat-item"><div class="stat-number">100%</div><div>Site-ready techs</div></div>
-      </div>
-    </div>
-  </section>
+<div class="hero"><div class="wrap">
+<h1>Every service, part and photo. One log per vehicle.</h1>
+<p>Simple maintenance tracking for small rental, bus and logistics fleets. Replace Excel sheets and WhatsApp photos with a record your whole team can trust.</p>
+<a class="btn" href="#try">Try the vehicle log</a><a class="btn alt" href="#join">Join the waitlist</a>
+</div></div>
 
-  <!-- Services (similar to Tejas clean card layout) -->
-  <section id="services" class="section">
-    <div class="container">
-      <div>
-        <h2 class="section-title">Core subcontract solutions</h2>
-        <p class="section-sub">We deliver turnkey electrical & ELV execution for contractors, developers, and system integrators.</p>
-      </div>
-      <div class="cards-grid">
-        <div class="service-card"><div class="service-icon"><i class="fas fa-bolt"></i></div><h3>Electrical works</h3><p>Power distribution, panel installation, lighting control, and site rough-in.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-microchip"></i></div><h3>ELV systems</h3><p>CCTV, access control, fire alarms, BMS, structured low-voltage solutions.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-network-wired"></i></div><h3>Structured cabling</h3><p>Cat6/6A/7, fiber optics, data center racks, testing & certification.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-chart-line"></i></div><h3>Testing & commissioning</h3><p>End-to-end testing, performance validation, and handover documentation.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-people-carry-box"></i></div><h3>Site execution support</h3><p>Manpower, supervision, material coordination for hassle‑free project delivery.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-users"></i></div><h3>Technical team augmentation</h3><p>Skilled electricians & ELV technicians embed within your existing crews.</p></div>
-      </div>
-    </div>
-  </section>
+<section id="features"><div class="wrap">
+<h2>Built for the workshop and the road</h2>
+<p class="sub">Everything a fleet owner asks about a vehicle, answered in one place.</p>
+<div class="grid">
+<div class="f"><h3>Service history</h3><p>Oil changes, tyres, brakes, parts and cost, with a photo of every invoice and part.</p></div>
+<div class="f"><h3>Due reminders</h3><p>Know when each vehicle needs service by kilometres or date, before it breaks down.</p></div>
+<div class="f"><h3>Fuel and odometer</h3><p>Track cost per kilometre and spot vehicles that burn more than they should.</p></div>
+<div class="f"><h3>Driver checklists</h3><p>Before and after trip photos show who was driving when damage happened.</p></div>
+<div class="f"><h3>Document expiry</h3><p>Registration, insurance and inspection dates, flagged ahead of time.</p></div>
+<div class="f"><h3>Reports</h3><p>Export a per vehicle or monthly report to Excel or PDF for your accountant.</p></div>
+</div></div></section>
 
-  <!-- Gallery with networking & electrical photos (Projects) -->
-  <section id="projects" class="section" style="padding-top: 0;">
-    <div class="container">
-      <div>
-        <h2 class="section-title">Recent project executions</h2>
-        <p class="section-sub">Structured cabling, switchgear, and ELV system installations.</p>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=600&auto=format" alt="Electrical panel"><div class="gallery-caption"><h4>Power distribution</h4><p>Panel installation & load centers</p></div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format" alt="Networking rack"><div class="gallery-caption"><h4>Data center cabling</h4><p>Fiber & copper termination</p></div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&auto=format" alt="ELV testing"><div class="gallery-caption"><h4>Access control</h4><p>Commissioning & testing</p></div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format" alt="Cabling termination"><div class="gallery-caption"><h4>Structured cabling</h4><p>Cat6A certification</p></div></div>
-      </div>
-    </div>
-  </section>
+<section id="try"><div class="wrap">
+<h2>Try the vehicle log</h2>
+<p class="sub">This demo works in your browser and saves on this device only. Add a vehicle, log a service with a photo, and watch the reminders update.</p>
+<div class="app">
+<div class="side"><strong>Vehicles</strong><div id="vlist" style="margin:10px 0"></div>
+<form id="vform"><label>Plate<input id="vplate" required maxlength="12" placeholder="ABC 1234"></label>
+<label style="margin-top:8px">Model<input id="vmodel" required maxlength="30" placeholder="Toyota Hiace"></label>
+<button class="btn" style="margin-top:10px;width:100%">Add vehicle</button></form></div>
+<div class="main" id="detail"></div>
+</div>
+<p class="note">Demo only. The full app adds user accounts, shared access for drivers and mechanics, and cloud photo storage.</p>
+</div></section>
 
-  <!-- Testimonial / Partner area (inspired by Tejas quotes) -->
-  <div class="container testimonial-section">
-    <div class="testimonial-grid">
-      <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Symfronic Solutions provided flawless electrical & ELV execution for our commercial campus. Their technical team integrated seamlessly with our GC workflow."</p><h4 style="margin-top: 16px;">— Regional Contractor</h4></div>
-      <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Rapid deployment of structured cabling specialists. They certified our network infrastructure within tight deadlines. Highly reliable partner."</p><h4 style="margin-top: 16px;">— IT Infrastructure Lead</h4></div>
-      <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"Best subcontractor for ELV systems. Great site coordination and quality control. We continue to use them for site execution support."</p><h4 style="margin-top: 16px;">— MEP Project Manager</h4></div>
-    </div>
-  </div>
+<section id="pricing" style="background:#e6e9ec"><div class="wrap">
+<h2>Pricing that fits a small fleet</h2>
+<p class="sub">Prices are planned launch rates and may change after the pilot.</p>
+<div class="grid">
+<div class="price"><h3>Free</h3><div class="p">$0</div><ul><li>Up to 3 vehicles</li><li>Basic service log</li></ul></div>
+<div class="price hi"><h3>Starter</h3><div class="p">$2 <small style="font-size:15px;font-family:Barlow">per vehicle/month</small></div><ul><li>Photos and reminders</li><li>Document expiry alerts</li></ul></div>
+<div class="price"><h3>Business</h3><div class="p">$4 <small style="font-size:15px;font-family:Barlow">per vehicle/month</small></div><ul><li>Driver checklists</li><li>Reports and multiple users</li></ul></div>
+<div class="price"><h3>Enterprise</h3><div class="p">Custom</div><ul><li>Your logo and name</li><li>Integrations and onboarding</li></ul></div>
+</div></div></section>
 
-  <!-- Site execution support callout -->
-  <div class="container support-zone">
-    <div class="support-flex">
-      <div class="support-text">
-        <span style="background:#ffffff20; padding:4px 14px; border-radius:40px; font-size:0.8rem;"><i class="fas fa-truck"></i> On-demand technical teams</span>
-        <h2 style="font-size: 1.9rem; margin: 20px 0;">Ongoing project? <br>Need extra crew on site?</h2>
-        <p>We provide certified electricians, ELV technicians, and site supervisors within 48h. Flexible subcontracting models (T&M / fixed scope).</p>
-        <ul class="support-list">
-          <li><i class="fas fa-check-circle"></i> Immediate mobilization for peak workloads</li>
-          <li><i class="fas fa-check-circle"></i> 100% safety compliant & tooled up</li>
-          <li><i class="fas fa-check-circle"></i> Structured cabling & testing squads ready</li>
-        </ul>
-        <a href="#contact" class="btn-primary" style="background: white; color:#0f2b3d; margin-top: 12px; display: inline-block;"><i class="fas fa-calendar-alt"></i> Request site support</a>
-      </div>
-      <div class="support-image" style="flex:0.9;"><img src="https://images.unsplash.com/photo-1581092160562-40aa08e7882d?w=600&auto=format" alt="site technician" style="width:100%; border-radius: 28px; object-fit: cover; height: 260px;"></div>
-    </div>
-  </div>
+<section class="wait" id="join"><div class="wrap">
+<h2>Get early access</h2>
+<p style="color:#c9d2d9;margin:0 0 20px;max-width:34em">Pilot fleets get a discounted rate and a say in what we build first.</p>
+<!-- Replace YOUR_FORM_ID with your Formspree form ID (formspree.io) -->
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+<input type="email" name="email" required placeholder="Work email" aria-label="Work email">
+<input type="text" name="fleet_size" placeholder="Fleet size (e.g. 25)" aria-label="Fleet size" style="max-width:170px">
+<button class="btn">Join the waitlist</button></form>
+</div></section>
 
-  <!-- Why us - corporate stats -->
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Why general contractors trust us</h2>
-      <div style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 40px;">
-        <div style="flex:1;"><i class="fas fa-chart-line" style="font-size: 2rem; color:#1e6d9b;"></i><h3>Scalable workforce</h3><p>From 3 to 50+ technicians — we match your project phase.</p></div>
-        <div style="flex:1;"><i class="fas fa-clipboard-list" style="font-size: 2rem; color:#1e6d9b;"></i><h3>QA/QC processes</h3><p>On-site inspections, daily reports, and milestone sign-offs.</p></div>
-        <div style="flex:1;"><i class="fas fa-handshake" style="font-size: 2rem; color:#1e6d9b;"></i><h3>Seamless integration</h3><p>Work as an extension of your existing management.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact section -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div>
-        <h2 class="section-title">Let's support your next milestone</h2>
-        <p class="section-sub">Reach out for a technical team proposal tailored to your electrical & ELV scope.</p>
-      </div>
-      <div class="contact-flex">
-        <div class="contact-info" style="flex:1">
-          <h3>Get in touch</h3>
-          <p>Our team responds within 12 hours to align resources for your site.</p>
-          <div style="margin: 30px 0;"><p><i class="fas fa-envelope" style="width: 32px; color:#1e6d9b;"></i> projects@symfronicsolutions.com</p>
-          <p style="margin-top: 16px;"><i class="fas fa-phone-alt" style="width: 32px; color:#1e6d9b;"></i> +1 (888) 807-2345</p>
-          <p style="margin-top: 16px;"><i class="fas fa-map-marker-alt" style="width: 32px; color:#1e6d9b;"></i> Nationwide operations</p></div>
-        </div>
-        <div class="contact-form" style="flex:1.4">
-          <form id="demoContactForm">
-            <div class="form-group"><input type="text" id="name" placeholder="Full name *" required></div>
-            <div class="form-group"><input type="email" id="email" placeholder="Email address *" required></div>
-            <div class="form-group"><textarea rows="4" id="message" placeholder="Tell us about your ongoing project or team requirement..." required></textarea></div>
-            <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-paper-plane"></i> Request execution support</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <p>© 2025 Symfronic Solutions — Subcontract execution for Electrical & ELV works. Installation · Testing · Structured Cabling · Site Support</p>
-    <p style="margin-top: 20px;"><i class="fas fa-hard-hat"></i> On-demand technical teams ready for your project · <a href="#contact" style="color: #b9d2e8;">Get a quote</a></p>
-  </div>
-</footer>
+<footer><div class="wrap">&copy; <span id="yr"></span> Symfronic Solutions. FleetLog is in development.</div></footer>
 
 <script>
-  const form = document.getElementById('demoContactForm');
-  if(form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name')?.value.trim();
-      const email = document.getElementById('email')?.value.trim();
-      const message = document.getElementById('message')?.value.trim();
-      if(!name || !email || !message) {
-        alert('Please fill out name, email, and message.');
-        return;
-      }
-      alert(`Thank you ${name}! Symfronic Solutions will contact you shortly to discuss site execution support and technical team deployment.`);
-      form.reset();
-    });
-  }
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if(targetId === "#" || targetId === "") return;
-      const targetElem = document.querySelector(targetId);
-      if(targetElem) {
-        e.preventDefault();
-        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
+const KEY='fleetlog-demo-v1', $=id=>document.getElementById(id);
+const TYPES={oil:['Oil change',10000],tyres:['Tyre change',40000],brakes:['Brake service',30000],battery:['Battery',60000],general:['General service',15000],repair:['Repair / parts',0],fuel:['Fuel',0]};
+let db={sel:null,v:[]};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)db=s}catch(e){}
+if(!db.v.length){db.v=[
+ {id:1,plate:'KSA 4821',model:'Toyota Hiace Bus',s:[{id:11,type:'oil',date:'2026-07-02',odo:48200,cost:180,note:'Synthetic 5W-30, filter replaced',img:''},{id:12,type:'brakes',date:'2026-08-14',odo:52900,cost:640,note:'Front pads and discs',img:''}]},
+ {id:2,plate:'RYD 7310',model:'Hyundai Accent Rental',s:[{id:21,type:'oil',date:'2026-09-10',odo:21400,cost:150,note:'',img:''}]}];db.sel=1}
+if(!db.sel)db.sel=db.v[0]?.id;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const cur=()=>db.v.find(v=>v.id===db.sel);
+const odoOf=v=>v.s.reduce((m,x)=>Math.max(m,x.odo||0),0);
+
+function renderList(){
+ $('vlist').innerHTML=db.v.map(v=>`<button class="veh ${v.id===db.sel?'on':''}" data-id="${v.id}"><b>${esc(v.plate)}</b><small>${esc(v.model)}</small></button>`).join('')||'<p class="empty">No vehicles yet.</p>';
+ $('vlist').querySelectorAll('button').forEach(b=>b.onclick=()=>{db.sel=+b.dataset.id;save();render()});
+}
+function dueTags(v){
+ const odo=odoOf(v);
+ return ['oil','tyres','brakes','battery','general'].map(k=>{
+  const last=v.s.filter(x=>x.type===k).reduce((m,x)=>Math.max(m,x.odo),-1);
+  if(last<0)return `<span class="tag soon">${TYPES[k][0]}: no record</span>`;
+  const left=last+TYPES[k][1]-odo;
+  const c=left<0?'over':left<1000?'soon':'ok';
+  return `<span class="tag ${c}">${TYPES[k][0]}: ${left<0?Math.abs(left).toLocaleString()+' km overdue':left.toLocaleString()+' km left'}</span>`;
+ }).join('');
+}
+function renderDetail(){
+ const v=cur();
+ if(!v){$('detail').innerHTML='<p class="empty">Add your first vehicle on the left to start a log.</p>';return}
+ const total=v.s.reduce((a,x)=>a+(+x.cost||0),0);
+ const list=[...v.s].sort((a,b)=>b.date.localeCompare(a.date)||b.odo-a.odo);
+ $('detail').innerHTML=`
+ <span class="plate">${esc(v.plate)}</span> <span style="margin-left:8px">${esc(v.model)}</span>
+ <button id="delv" style="float:right;background:none;border:0;color:var(--bad);cursor:pointer;font:inherit">Delete vehicle</button>
+ <div class="stats"><div class="stat"><b>${odoOf(v).toLocaleString()} km</b><span>Latest odometer</span></div>
+ <div class="stat"><b>${v.s.length}</b><span>Log entries</span></div>
+ <div class="stat"><b>$${total.toLocaleString()}</b><span>Total cost</span></div></div>
+ <div class="due">${dueTags(v)}</div>
+ <div class="panel"><strong>Add a log entry</strong>
+ <form class="row" id="sform" style="margin-top:10px">
+ <label>Type<select id="stype">${Object.entries(TYPES).map(([k,t])=>`<option value="${k}">${t[0]}</option>`).join('')}</select></label>
+ <label>Date<input type="date" id="sdate" required></label>
+ <label>Odometer (km)<input type="number" id="sodo" min="0" required></label>
+ <label>Cost ($)<input type="number" id="scost" min="0" step="0.01" value="0"></label>
+ <label style="grid-column:1/-1">Notes or parts used<input id="snote" maxlength="120" placeholder="e.g. Oil filter, 5 L synthetic"></label>
+ <label>Photo of invoice or part<input type="file" id="simg" accept="image/*"></label>
+ <button class="btn">Save entry</button></form></div>
+ <ul class="log">${list.map(x=>`<li>${x.img?`<img src="${x.img}" alt="Photo for ${esc(TYPES[x.type][0])}">`:''}
+ <div><div class="t">${esc(TYPES[x.type][0])} &ndash; ${(+x.odo).toLocaleString()} km</div>
+ <div class="m">${esc(x.date)} &middot; $${(+x.cost||0).toLocaleString()}${x.note?' &middot; '+esc(x.note):''}</div></div>
+ <button data-d="${x.id}">Delete</button></li>`).join('')||'<li class="empty">No entries yet. Save the first service above.</li>'}</ul>`;
+ $('sdate').valueAsDate=new Date();
+ $('sodo').value=odoOf(v)||'';
+ $('delv').onclick=()=>{if(confirm('Delete '+v.plate+' and its log?')){db.v=db.v.filter(x=>x!==v);db.sel=db.v[0]?.id;save();render()}};
+ $('detail').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{v.s=v.s.filter(x=>x.id!==+b.dataset.d);save();render()});
+ $('sform').onsubmit=async e=>{
+  e.preventDefault();
+  const f=$('simg').files[0];
+  v.s.push({id:Date.now(),type:$('stype').value,date:$('sdate').value,odo:+$('sodo').value,cost:+$('scost').value||0,note:$('snote').value.trim(),img:f?await shrink(f):''});
+  save();render();
+ };
+}
+function shrink(file){
+ return new Promise(res=>{
+  const r=new FileReader();
+  r.onerror=()=>res('');
+  r.onload=()=>{const i=new Image();i.onerror=()=>res('');
+   i.onload=()=>{const s=Math.min(1,240/Math.max(i.width,i.height)),c=document.createElement('canvas');
+    c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.7))};
+   i.src=r.result};
+  r.readAsDataURL(file);
+ });
+}
+$('vform').onsubmit=e=>{
+ e.preventDefault();
+ const v={id:Date.now(),plate:$('vplate').value.trim().toUpperCase(),model:$('vmodel').value.trim(),s:[]};
+ db.v.push(v);db.sel=v.id;save();e.target.reset();render();
+};
+function render(){renderList();renderDetail()}
+$('yr').textContent=new Date().getFullYear();
+render();
 </script>
 </body>
 </html>
